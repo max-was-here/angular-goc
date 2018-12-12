@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { from, fromEvent, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
 
 @Component({
   templateUrl: './observable.component.html',
@@ -23,6 +23,7 @@ export class ObservableComponent implements OnInit {
     const source = from([1, 2, 3, 4, 5, 6, 7, 8]);
     // multiply each value by 10
     const example = source.pipe(
+      filter(x => x % 2 === 0),
       map(x => x * 10),
       tap(x => console.log(x))
     );
@@ -33,7 +34,9 @@ export class ObservableComponent implements OnInit {
   observeInput() {
     // Transform keyup events from the input into an Observable stream
     this.myObservable$ = fromEvent(this.myInput.nativeElement, 'keyup').pipe(
+      debounceTime(500),
       map(() => this.myInput.nativeElement.value),
+      distinctUntilChanged(),
       tap(x => console.log(x))
     );
   }
