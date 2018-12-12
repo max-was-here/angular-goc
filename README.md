@@ -31,3 +31,7 @@ npm start
 ## Resources and documentation
 
 - [Angular Material Getting Started](https://material.angular.io/guide/getting-started)
+- [ReactiveX](http://reactivex.io)
+- [Learn RxJS](https://www.learnrxjs.io/)
+- [Rx Marbles](http://rxmarbles.com/)
+- [Deck of Cards API](https://deckofcardsapi.com/)
