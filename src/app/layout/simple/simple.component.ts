@@ -19,21 +19,22 @@ export class SimpleComponent {
   ) {}
 
   onShuffleClick() {
+    this.notificationService.showNotification('Not implemented yet!', NotificationType.error);
     // Shuffle the deck
-    this.deckOfCardsService.shuffleDeck().pipe(
-      // Transform response into Deck model
-      map(deckResponse => {
-        return {
-          deckId: deckResponse.deck_id,
-          shuffled: deckResponse.shuffled,
-          remaining: deckResponse.remaining
-        };
-      })
-    ).subscribe(
-        // On success, updated our currentDeck object, on failure display error notification
-      (deck: Deck) => this.currentDeck = deck,
-        () => this.notificationService.showNotification('Ooops, we dropped the cards while shuffling!', NotificationType.error)
-      );
+    // this.deckOfCardsService.shuffleDeck().pipe(
+    //   // Transform response into Deck model
+    //   map(deckResponse => {
+    //     return {
+    //       deckId: deckResponse.deck_id,
+    //       shuffled: deckResponse.shuffled,
+    //       remaining: deckResponse.remaining
+    //     };
+    //   })
+    // ).subscribe(
+    //   // On success, updated our currentDeck object, on failure display error notification
+    //   (deck: Deck) => this.currentDeck = deck,
+    //   () => this.notificationService.showNotification('Ooops, we dropped the cards while shuffling!', NotificationType.error)
+    // );
   }
 
   onDrawClick() {
@@ -43,10 +44,10 @@ export class SimpleComponent {
     } else {
       this.deckOfCardsService.drawCards(this.currentDeck.deckId)
         .subscribe(cardResponse => {
-          // Update our topmost card and remaining cards
-          this.currentCard = cardResponse.cards[0];
-          this.currentDeck.remaining = cardResponse.remaining;
-        },
+            // Update our topmost card and remaining cards
+            this.currentCard = cardResponse.cards[0];
+            this.currentDeck.remaining = cardResponse.remaining;
+          },
           () => this.notificationService.showNotification('Cards stuck, drawing failed.', NotificationType.error)
         );
     }

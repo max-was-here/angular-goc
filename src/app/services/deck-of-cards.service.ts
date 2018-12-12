@@ -10,25 +10,15 @@ export class DeckOfCardsService {
 
   public constructor(private http: HttpClient) {}
 
-  public shuffleDeck(deckId: string = null, deckCount: number = 1): Observable<DeckResponse> {
-    if (!deckId) {
-      deckId = 'new';
-    }
-
-    const url = `${this.BASE_URL}deck/${deckId}/shuffle/`;
-    let params: HttpParams = new HttpParams();
-    if (deckId === 'new' && deckCount > 1) {
-      // HttpParams is an immutable object, set operations creates a new HttpParams
-      params = params.set('count', deckCount.toString());
-    }
-
-    return this.http.get<DeckResponse>(url, {params: params});
-  }
+  // public shuffleDeck(deckId: string = null, deckCount: number = 1): Observable<DeckResponse> {
+  //
+  // }
 
   public drawCards(deckId: string, cardCount: number = 1): Observable<CardsResponse> {
     const url = `${this.BASE_URL}deck/${deckId}/draw/`;
     let params: HttpParams = new HttpParams();
     if (cardCount > 1) {
+      // HttpParams is an immutable object, set operations creates a new HttpParams
       params = params.set('count', cardCount.toString());
     }
 
