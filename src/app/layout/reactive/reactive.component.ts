@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Card } from '../../models/card.model';
 import { Deck } from '../../models/deck.model';
 import { DrawCardsAction, ShuffleDeckAction } from '../../store/actions/deck.actions';
-import { selectCurrentDeck, selectLastCardDrawn } from '../../store/reducers/deck.reducer';
+import { selectCurrentDeck } from '../../store/reducers/deck.reducer';
 
 @Component({
   templateUrl: './reactive.component.html',
@@ -15,7 +15,6 @@ export class ReactiveComponent {
   public currentDeck$: Observable<Deck>;
 
   constructor(private store: Store<Deck>) {
-    this.currentCard$ = this.store.pipe(select(selectLastCardDrawn));
     this.currentDeck$ = this.store.pipe(select(selectCurrentDeck));
   }
 
