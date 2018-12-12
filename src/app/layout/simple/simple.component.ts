@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { Card } from '../../models/card.model';
 import { Deck } from '../../models/deck.model';
 import { NotificationService, NotificationType } from '../../modules/notification/notification.service';
 import { DeckOfCardsService } from '../../services/deck-of-cards.service';
-import { map } from 'rxjs/operators';
 
 @Component({
   templateUrl: './simple.component.html',
@@ -19,7 +19,9 @@ export class SimpleComponent {
   ) {}
 
   onShuffleClick() {
+    // Shuffle the deck
     this.deckOfCardsService.shuffleDeck().pipe(
+      // Transform response into Deck model
       map(deckResponse => {
         return {
           deckId: deckResponse.deck_id,
@@ -28,6 +30,7 @@ export class SimpleComponent {
         };
       })
     ).subscribe(
+        // On success, updated our currentDeck object, on failure display error notification
       (deck: Deck) => this.currentDeck = deck,
         () => this.notificationService.showNotification('Ooops, we dropped the cards while shuffling!', NotificationType.error)
       );
@@ -35,10 +38,12 @@ export class SimpleComponent {
 
   onDrawClick() {
     if (this.currentDeck === null) {
+      // We can't draw cards from the void... Deck must be shuffled first !
       this.notificationService.showNotification('You must shuffle a deck before drawing a card!', NotificationType.error);
     } else {
       this.deckOfCardsService.drawCards(this.currentDeck.deckId)
         .subscribe(cardResponse => {
+          // Update our topmost card and remaining cards
           this.currentCard = cardResponse.cards[0];
           this.currentDeck.remaining = cardResponse.remaining;
         },

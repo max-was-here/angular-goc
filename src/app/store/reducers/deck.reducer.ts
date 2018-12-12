@@ -18,10 +18,14 @@ export const initialDeckState: DeckState = {
 export function deckReducer(state: DeckState = initialDeckState, action: DeckActions): DeckState {
   switch (action.type) {
     case DeckActionTypes.SHUFFLE_DECK_SUCCESS:
+      // Flush drawn cards and set the new deck
       return {drawnCards: [], deck: action.payload.deck};
     case DeckActionTypes.DRAW_CARDS_SUCCESS:
+      // Clone the current state since we can't... should not edit it
       const stateCopy = cloneDeep(state);
+      // Prepend drawn cards
       action.payload.cardsResponse.cards.forEach((card) => stateCopy.drawnCards.unshift(card));
+      // Update the remaining cards
       stateCopy.deck.remaining = action.payload.cardsResponse.remaining;
       return stateCopy;
 

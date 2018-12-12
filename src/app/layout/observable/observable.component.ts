@@ -15,12 +15,7 @@ export class ObservableComponent implements OnInit {
 
   ngOnInit(): void {
     this.multiplyBy10();
-    console.log(this.myInput);
-    this.myObservable$ = fromEvent(this.myInput.nativeElement, 'keyup').pipe(
-      map(() => this.myInput.nativeElement.value),
-      tap(x => console.log(x))
-    );
-
+    this.observeInput();
   }
 
   multiplyBy10() {
@@ -33,5 +28,13 @@ export class ObservableComponent implements OnInit {
     );
     // output: 10, 20, 30...
     example.subscribe(val => this.arrayValues.push(val));
+  }
+
+  observeInput() {
+    // Transform keyup events from the input into an Observable stream
+    this.myObservable$ = fromEvent(this.myInput.nativeElement, 'keyup').pipe(
+      map(() => this.myInput.nativeElement.value),
+      tap(x => console.log(x))
+    );
   }
 }

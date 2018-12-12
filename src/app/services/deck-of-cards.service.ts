@@ -18,6 +18,7 @@ export class DeckOfCardsService {
     const url = `${this.BASE_URL}deck/${deckId}/shuffle/`;
     let params: HttpParams = new HttpParams();
     if (deckId === 'new' && deckCount > 1) {
+      // HttpParams is an immutable object, set operations creates a new HttpParams
       params = params.set('count', deckCount.toString());
     }
 

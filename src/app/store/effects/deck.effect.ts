@@ -30,10 +30,14 @@ export class DeckEffects {
   /* Actions Related Effects */
   @Effect()
   public shuffleDeck$: Observable<Action> = this.actions$.pipe(
+    // When shuffle deck action is emitted
     ofType(DeckActionTypes.SHUFFLE_DECK),
+    // Fetch our current deck id from the store
     withLatestFrom(this.store.pipe(select(selectCurrentDeckId))),
     switchMap(([action, deckId]: [ShuffleDeckAction, string]) =>
+      // Call the API
       this.deckOfCardsService.shuffleDeck(deckId, action.payload.count).pipe(
+        // Map the response to a Deck model
         map(deckResponse => {
           return {
             deckId: deckResponse.deck_id,
@@ -41,7 +45,9 @@ export class DeckEffects {
             remaining: deckResponse.remaining
           };
         }),
+        // Success, emit a success Action
         map((deck: Deck) => new ShuffleDeckSuccessAction({deck})),
+        // Something went wrong, emit failure Action
         catchError((httpError: HttpErrorResponse) => of(
           new ShuffleDeckErrorAction({message: 'Ooops, we dropped the cards while shuffling!', httpError}
           )
@@ -73,6 +79,7 @@ export class DeckEffects {
   @Effect({ dispatch: false })
   public manageErrors$: Observable<any> = this.actions$.pipe(
     ofType(DeckActionTypes.SHUFFLE_DECK_ERROR, DeckActionTypes.DRAW_CARDS_ERROR),
+    // When a failure Action is emitted, display the message with the NotificationService
     tap(action => this.notificationService.showNotification(action.payload.message, NotificationType.error))
   );
 }
