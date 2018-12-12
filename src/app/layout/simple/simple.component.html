@@ -1,0 +1,15 @@
+<div class="actions-container">
+  <button mat-raised-button color="primary" (click)="onShuffleClick()">
+    Shuffle deck
+  </button>
+  <button mat-raised-button color="accent" (click)="onDrawClick()">
+    Draw a card
+  </button>
+</div>
+<div class="info-container" *ngIf="currentDeck">
+  <span>Current deck id : {{ currentDeck.deckId }}</span><br/>
+  <span>Remaining cards : {{ currentDeck.remaining }}</span>
+</div>
+<div class="card-container" *ngIf="currentCard">
+  <goc-card [card]="currentCard"></goc-card>
+</div>

@@ -1,0 +1,14 @@
+body{
+  margin: 0;
+}
+
+#app-content {
+  margin-top: 70px;
+  height: calc(100vh - 70px);
+}
+.main-ctn {
+  margin-left: 3rem;
+  margin-right: 3rem;
+  width: calc(100vw - 6rem);
+  box-sizing: border-box;
+}

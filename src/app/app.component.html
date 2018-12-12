@@ -1,0 +1,25 @@
+<router-outlet></router-outlet>
+<header>
+  <nav>
+    <mat-toolbar class="app-navbar mat-elevation-z4" color="primary">
+      <a mat-button class="menu-logo" routerLink="/">
+        <img alt="angular" src="/assets/angular-white-transparent.svg">
+        <span>Game of Cards</span>
+      </a>
+      <a mat-button class="nav-route" routerLink="/observable" routerLinkActive="nav-route-active">
+        Observable
+      </a>
+      <a mat-button class="nav-route" routerLink="/simple" routerLinkActive="nav-route-active">
+        Simple
+      </a>
+      <a mat-button class="nav-route" routerLink="/reactive" routerLinkActive="nav-route-active">
+        Reactive
+      </a>
+    </mat-toolbar>
+  </nav>
+</header>
+<main>
+  <div id="app-content" class="main-ctn">
+    <router-outlet></router-outlet>
+  </div>
+</main>
