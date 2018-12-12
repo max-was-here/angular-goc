@@ -1,0 +1,37 @@
+@import './../theme/palette';
+
+$success: mat-color(mat-palette($mat-green));
+$warning: mat-color(mat-palette($mat-amber));
+$error: mat-color(mat-palette($mat-red));
+
+.snackbar-success {
+  border-left: 4px solid $success;
+  color: $success;
+  .mat-simple-snackbar-action {
+    color: $success;
+  }
+}
+
+.snackbar-warning {
+  border-left: 4px solid $warning;
+  color: $warning;
+  .mat-simple-snackbar-action {
+    color: $warning;
+  }
+}
+
+.snackbar-error {
+  border-left: 4px solid $error;
+  color: $error;
+  .mat-simple-snackbar-action {
+    color: $error;
+  }
+}
+
+@media (max-width: 599px) {
+  .snackbar-success,
+  .snackbar-warning,
+  .snackbar-error {
+    border-radius: 0;
+  }
+}

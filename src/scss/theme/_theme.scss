@@ -1,0 +1,4 @@
+@import './palette';
+
+@include mat-core();
+@include angular-material-theme($theme);
