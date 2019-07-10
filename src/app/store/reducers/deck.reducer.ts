@@ -36,7 +36,7 @@ export function deckReducer(state: DeckState = initialDeckState, action: DeckAct
 
 export const selectDeckState = createFeatureSelector<DeckState>('deck');
 
-// Current client selectors
+// Current deck selectors
 export const selectCurrentDeck = createSelector(selectDeckState, (state: DeckState) => state.deck);
 export const selectCurrentDeckId = createSelector(selectCurrentDeck, (deck: Deck) => deck ? deck.deckId : null);
 export const selectDrawnCards = createSelector(selectDeckState, (state: DeckState) => state.drawnCards);

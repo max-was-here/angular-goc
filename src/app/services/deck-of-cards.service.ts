@@ -19,7 +19,7 @@ export class DeckOfCardsService {
     let params: HttpParams = new HttpParams();
     if (deckId === 'new' && deckCount > 1) {
       // HttpParams is an immutable object, set operations creates a new HttpParams
-      params = params.set('count', deckCount.toString());
+      params = params.set('deck_count', deckCount.toString());
     }
 
     return this.http.get<DeckResponse>(url, {params: params});
